@@ -14,7 +14,7 @@ const addNewContact = (req,res) => {
     });
 };
 
-const getContacts = (req,res) =>{
+const getContacts = (req,res) => {
     Contact.find({}, (err,contact) => {
         if(err){
             res.send(err);
@@ -23,7 +23,7 @@ const getContacts = (req,res) =>{
     });
 };
 
-const getContactWithID = (req,res) =>{
+const getContactWithID = (req,res) => {
     Contact.findById(req.params.contactId, (err, contact) =>{
         if(err){
             res.send(err);
@@ -32,8 +32,8 @@ const getContactWithID = (req,res) =>{
     });
 };
 
-const updateContact = (req,res) =>{
-    Contact.findOneAndUpdate({_id: req.params.contactId}, req.body, (err, contact)  =>{
+const updateContact = (req,res) => {
+    Contact.findOneAndUpdate({_id: req.params.contactId}, req.body, {new: true}, (err, contact)  =>{
         if(err){
             res.send(err);
         }
@@ -41,10 +41,20 @@ const updateContact = (req,res) =>{
     });
 };
 
-// module.exports = addNewContact; //if i try to combine it, the functions will be mixed up
-// module.exports = getContacts;
+const deleteContact = (req,res) => {
+
+    Contact.remove({ _id: req.params.contactId}, (err) =>{
+        if(err){
+            res.send(err);
+        }
+        res.json({message: `Success contact deleted`});
+    })
+};
+
 module.exports = {
     addNewContact,
     getContacts,
-    getContactWithID
+    getContactWithID,
+    updateContact,
+    deleteContact
 };

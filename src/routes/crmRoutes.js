@@ -14,11 +14,9 @@ const routes = (app) => {
     app.route('/contact/:contactId')//parameter
     .get(crmController.getContactWithID)
 
-    .put((req,res)=>
-    res.send('PUT request success'))
+    .put(crmController.updateContact)
 
-    .delete((req,res)=>
-    res.send('DELETE request success'))
+    .delete(crmController.deleteContact)
     
 }
 
